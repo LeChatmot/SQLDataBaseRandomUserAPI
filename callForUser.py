@@ -82,7 +82,7 @@ class User:
 
 
 
-u = User()
+"""u = User()
 for el in u.data:
     print(el, end=" : ")
-    print(u.data[el])
+    print(u.data[el])"""
