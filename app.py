@@ -29,6 +29,9 @@ class MyApp:
         self.emailLabel = ttk.Label(text=self.getEmail())
         self.emailLabel.pack()
 
+        self.natLabel = ttk.Label(text=self.getNat())
+        self.natLabel.pack()
+
         #button fror generating an other user
         self.newUserButton = ttk.Button(self.root, text='get new user', command=lambda:self.getNewUser())
         self.newUserButton.pack()
@@ -43,6 +46,7 @@ class MyApp:
         self.nameLabel["text"] = self.getName()
         self.addressLabel["text"] = self.getAddress()
         self.emailLabel['text'] = self.getEmail()
+        self.natLabel['text'] = self.getNat()
 
     def getPic(self):
         self.user.getUserPicture()
@@ -56,6 +60,9 @@ class MyApp:
 
     def getEmail(self):
         return self.user.getUserEmail()
+
+    def getNat(self):
+        return self.user.getUserNat()
 
 if __name__ == "__main__":
     app = MyApp()
