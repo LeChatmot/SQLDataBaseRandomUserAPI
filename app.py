@@ -26,6 +26,9 @@ class MyApp:
         self.addressLabel = ttk.Label(text=self.getAddress())
         self.addressLabel.pack()
 
+        self.emailLabel = ttk.Label(text=self.getEmail())
+        self.emailLabel.pack()
+
         #button fror generating an other user
         self.newUserButton = ttk.Button(self.root, text='get new user', command=lambda:self.getNewUser())
         self.newUserButton.pack()
@@ -39,6 +42,7 @@ class MyApp:
         self.cnvs.itemconfig(self.image_container, image=self.picture)
         self.nameLabel["text"] = self.getName()
         self.addressLabel["text"] = self.getAddress()
+        self.emailLabel['text'] = self.getEmail()
 
     def getPic(self):
         self.user.getUserPicture()
@@ -50,6 +54,8 @@ class MyApp:
     def getAddress(self):
         return "Address: " + str(self.user.getUserStreetNumber()) + " " + self.user.getUserStreetName()+", "+self.user.getUserCity()
 
+    def getEmail(self):
+        return self.user.getUserEmail()
 
 if __name__ == "__main__":
     app = MyApp()
