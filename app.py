@@ -1,24 +1,55 @@
 import tkinter
 from tkinter import ttk
 import callForUser
+from PIL import ImageTk, Image
+
 
 class MyApp:
 
     def __init__(self):
+        #create the window
         self.root = tkinter.Tk()
+        self.root.geometry("720x480")
         self.user = callForUser.User()
+        self.picture = self.getPic()
+        self.globalFrame = ttk.Frame(self.root)
 
-        self.globalFrame = ttk.Frame(self.root, padding=20)
-        self.globalFrame.grid(row=0, column=0, sticky='nsew')
+        #create the canvas for the profile picture
+        self.cnvs = tkinter.Canvas(self.root, width=128, height=128, bg='ivory')
+        self.cnvs.pack()
+        self.image_container = self.cnvs.create_image(0, 0, anchor="nw", image=self.picture)
 
-        self.root.grid_rowconfigure(0, minsize=200, weight=1)
-        self.root.grid_columnconfigure(0, minsize=200, weight=1)
-        self.root.grid_columnconfigure(1, weight=1)
+        # info from the user
+        self.nameLabel = ttk.Label(text=self.getName())
+        self.nameLabel.pack()
 
+        self.addressLabel = ttk.Label(text=self.getAddress())
+        self.addressLabel.pack()
+
+        #button fror generating an other user
+        self.newUserButton = ttk.Button(self.root, text='get new user', command=lambda:self.getNewUser())
+        self.newUserButton.pack()
+
+        #mainloop
         self.root.mainloop()
 
     def getNewUser(self):
         self.user = callForUser.User()
+        self.picture = self.getPic()
+        self.cnvs.itemconfig(self.image_container, image=self.picture)
+        self.nameLabel["text"] = self.getName()
+        self.addressLabel["text"] = self.getAddress()
+
+    def getPic(self):
+        self.user.getUserPicture()
+        return ImageTk.PhotoImage(Image.open("img.jpg"))
+
+    def getName(self):
+        return "name: "+self.user.getUserFirstName()+" "+self.user.getUserLastName()
+
+    def getAddress(self):
+        return "Address: " + str(self.user.getUserStreetNumber()) + " " + self.user.getUserStreetName()+", "+self.user.getUserCity()
+
 
 if __name__ == "__main__":
     app = MyApp()

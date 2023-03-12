@@ -1,5 +1,6 @@
 import requests,io
 from PIL import Image
+import shutil
 
 class User:
 
@@ -74,8 +75,10 @@ class User:
         return self.login['password']
 
     def getUserPicture(self):
-        r = requests.get(self.picture)
-        return Image.open(io.StringIO(r.content))
+        response = requests.get(self.picture, stream=True)
+        with open('img.jpg', 'wb') as out_file:
+            shutil.copyfileobj(response.raw, out_file)
+        del response
 
     def getUserNat(self):
         return self.nat
