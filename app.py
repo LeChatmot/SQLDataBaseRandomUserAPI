@@ -32,6 +32,7 @@ class MyApp:
         self.natLabel = ttk.Label(text=self.getNat())
         self.natLabel.pack()
 
+
         #button fror generating an other user
         self.newUserButton = ttk.Button(self.root, text='get new user', command=lambda:self.getNewUser())
         self.newUserButton.pack()
